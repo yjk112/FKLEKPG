@@ -1,0 +1,32 @@
+filebeat.inputs:
+# 采集Nginx访问日志
+- type: filestream
+  id: nginx-access-log
+  paths:
+    - /var/log/nginx/access.log
+  fields:
+    log_type: nginx_access
+
+# 采集nginx错误日志
+- type: filestream
+  id: nginx-error-log
+  paths:
+    - /var/log/nginx/error.log
+  fields:
+    log_type: nginx_error
+ 
+#输出给kafka
+output.kafka:
+  hosts: ["192.168.189.134:9092"]
+  topic: "nginx-access"
+  partition.round_robin:
+    reachable_only: false
+  required_acks: 1
+  compression: gzip
+  max_message_bytes: 1000000
+
+# 关闭ES默认输出
+output.elasticsearch:
+  enabled: false
+
+
