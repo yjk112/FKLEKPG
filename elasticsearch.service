@@ -1,0 +1,24 @@
+[Unit]
+Description=Elasticsearch
+Documentation=https://www.elastic.co
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=elasticsearch
+Group=elasticsearch
+# JVM堆内存，你虚拟机内存小就调低，比如 -Xms512m -Xmx512m
+Environment="ES_JAVA_OPTS=-Xms1g -Xmx1g"
+ExecStart=/opt/elasticsearch/bin/elasticsearch
+Restart=on-failure
+RestartSec=5
+
+# ES硬性资源限制，缺少会启动失败
+LimitNOFILE=65535
+LimitNPROC=4096
+LimitMEMLOCK=infinity
+
+[Install]
+WantedBy=multi-user.target
+
