@@ -1,0 +1,14 @@
+[Unit]
+Description=Logstash
+After=network.target
+
+[Service]
+Type=simple
+User=logstash
+Group=logstash
+ExecStart=/opt/logstash/bin/logstash -f /opt/logstash/config/nginx-kafka.conf
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
