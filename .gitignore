@@ -1,0 +1,25 @@
+# 备份文件
+*.bak
+
+# 压缩包
+*.zip
+*.tar
+*.tar.gz
+*.tar.bz2
+*.rar
+*.7z
+
+# 日志
+*.log
+logs/
+
+# GeoIP库
+*.mmdb
+
+# 依赖目录
+vendor/
+node_modules/
+
+# 系统无关
+.DS_Store
+Thumbs.db
