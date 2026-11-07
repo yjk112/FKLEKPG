@@ -1,0 +1,16 @@
+[Unit]
+Description=Grafana
+Documentation=https://grafana.com/docs/
+
+
+[Service]
+Type=simple
+User=grafana
+Group=grafana
+WorkingDirectory=/opt/grafana
+ExecStart=/opt/grafana/bin/grafana-server --homepath=/opt/grafana
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
