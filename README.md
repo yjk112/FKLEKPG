@@ -1,19 +1,19 @@
                                           实验型ELFKK日志采集和可观测监控系统搭建部署（基于rockyLinux8）
 
                包含内容： 
-               filebeat：采集业务（nginx日志），并输出到kafka           
+             filebeat：采集业务（nginx日志），并输出到kafka           
               
-               kafka：日志消息队列，削谷，数据缓冲
+             kafka：日志消息队列，削谷，数据缓冲
           
-              logstash：日志过滤，解析，清选
+            logstash：日志过滤，解析，清选
           
-              elasticsearch：日志存储与检索
+            elasticsearch：日志存储与检索
            
-              kibana：日志可视化，实时分析，用于对elasticsearch数据的展示
+            kibana：日志可视化，实时分析，用于对elasticsearch数据的展示
            
-              Prometheus：通过在需要备监控的主机上安装node_exporter，进行对系统，程序的指标进行采集，存储和查询
+            Prometheus：通过在需要备监控的主机上安装node_exporter，进行对系统，程序的指标进行采集，存储和查询
 
-             grafana： 可视化展示面板，可接入kibana，Prometheus等
+            grafana： 可视化展示面板，可接入kibana，Prometheus等
             
 
 
@@ -90,7 +90,7 @@
                      (3.1)   当kafka消息队列中的nginx日志到logstash时。logstash也是一样的安装流程到/opt下解压后，vim /opt/logstash/config/nginx-kafka.conf后，
                      写入  input和output和时区校正，一样的到system哪里穿件service文件，写入启动配置，systemclt daemon-reload重载
 
-
+                    （3.4）这里10.0.0.3的logstash版本为logstash-9.5.5-linux-x86_64.tar.gz
 
 
 
@@ -98,10 +98,10 @@
 
          4.（10.0.0.4）
                       （4.1） 当logstash解析过滤清洗后，输出到elasticsearch存储与检索，elasticsearch不需要配置啥，因为logstash输出到elasticsearch，elasticsearch被                       logstash主动推送，然后后面的kibana又是主动拉取查询elasticsearch内存储的日志，所以elasticsearch的输入和输出都是被动的，这里要做的就是
-                      systemd配置，开放端口和临时关闭Linux安全机制，但首先是把压缩包解压掉，然后正常配置systemd。systemctl daemon-reload重载，firewall-cmd --                             permannet--add-port=9200/tcp和setenforce 0
+                      systemd配置，开放端口和临时关闭Linux安全机制，但首先是把压缩包解压掉，然后正常配置systemd。systemctl daemon-reload重载，firewall-cmd --                             permannet--add-port=9200/tcp和setenforce 0，还有要注意elaticsearch和kibana的版本要一样。不然有些配置对不上，搞得kibana有些功能用不了
 
 
-
+                       （4.2） 这里10.0.0.4的elasticsearch版本为elasticsearch-9.5.5-linux-x86_64.tar.gz 
 
 
 
@@ -116,7 +116,7 @@
 
                       5（3）最后成功进去后，怎么操作kibana就去看其他技术文档吧，我也不是很熟这个玩意我后面再去多学学，所以elfkk日志采集与可视化这部分搭建完成，我的配                        置文件啥的应该没问题。 
 
-
+                      （5.4）  这里10.0.0.5的kibana版本为kibana-9.5.5-linux-x86_64.tar.gz
 
 
 
@@ -126,11 +126,18 @@
 
                      (6.2)    开放端口和临时关闭安全机制 ，firewall-cmd  --permanent --add-port=9090和setenforce 0
 
+                    （6.3）        这里10.0.0.6的Prometheus版本为prometheus-3.13.5.linux-386.tar.gz
+
+
+
 
           7.（10.0.0.7）
                      （7.1） 还是解压grafana压缩包到/opt，mv重命名，这里直接编辑system文件即可，编写完重载，然后开放端口和安全机制问题，firewall-cmd --permannet --                        add -port=3000/tcp 和setenforce 0,进入grafanaweb端，账号密码都为admin，然后添加采集源搜索Prometheus输入Prometheus的URL然后确认添加后完成，最后                     简单的可观测监控基本完成，这里面有些自定义玩法或者其他我就不说了
 
 
+
+                      （7.2）这里10.0.0.7的grafana的版本为grafana-12.3.6.tar.gz
+                      
 
 
          8.总结：这套微型的日志采集与可观测监控系统就搭建部署完成了，文件里面的IP和我这个笔记里的IP不一样，记得改为自己机器上的IP
