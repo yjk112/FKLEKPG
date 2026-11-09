@@ -1,4 +1,4 @@
-                                          实验型ELFKK日志采集和可观测监控系统搭建部署（基于rockyLinux8）
+实验型ELFKK日志采集和可观测监控系统搭建部署（基于rockyLinux8）
 
                包含内容： 
              filebeat：采集业务（nginx日志），并输出到kafka           
