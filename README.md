@@ -90,7 +90,8 @@
                      (3.1)   当kafka消息队列中的nginx日志到logstash时。logstash也是一样的安装流程到/opt下解压后，vim /opt/logstash/config/nginx-kafka.conf后，
                      写入  input和output和时区校正，一样的到system哪里穿件service文件，写入启动配置，systemclt daemon-reload重载
 
-                    （3.4）这里10.0.0.3的logstash版本为logstash-9.5.5-linux-x86_64.tar.gz
+                    （3.4）这里10.0.0.3的logstash版本为logstash-9.5.5-linux-x86_64.tar.gz。其次就是这里kafka也可以不用部署的，filebeat可以直接把nginx日志收集完丢给
+                    logstash，因为我这就只有nginx的日志产生，数量少且内容简单，kafka还是用在日志种类复杂数量居多的情境下比较适合
 
 
 
